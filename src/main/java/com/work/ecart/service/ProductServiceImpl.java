@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -142,6 +144,22 @@ public class ProductServiceImpl implements ProductService{
         genericResponse.setSuccess(true);
         genericResponse.setData(productList);
 
+        return genericResponse;
+    }
+    @Override
+    public GenericResponse findProductById(Integer id) throws ResourceNotFoundException {
+
+        Product product = productRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Product","id",id));
+        ProductResDto productResDto=new ProductResDto();
+        productResDto.setBrand(product.getBrand());
+        productResDto.setRate(product.getRate());
+        productResDto.setCategoryType(product.getCategory().getType());
+        productResDto.setName(product.getName());
+        GenericResponse genericResponse=new GenericResponse<>();
+        genericResponse.setMessage("Product found successfully");
+        genericResponse.setData(productResDto);
+        genericResponse.setSuccess(true);
         return genericResponse;
     }
 }

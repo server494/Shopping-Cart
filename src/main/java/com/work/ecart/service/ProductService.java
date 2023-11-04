@@ -20,4 +20,6 @@ public interface ProductService {
     GenericResponse deleteProduct(Integer id) throws ResourceNotFoundException;
 
     GenericResponse filterProductAbove(Integer rate);
+
+    GenericResponse findProductById(Integer id) throws ResourceNotFoundException;
 }

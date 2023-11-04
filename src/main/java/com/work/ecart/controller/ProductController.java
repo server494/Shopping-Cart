@@ -38,6 +38,18 @@ public class ProductController {
         return new ResponseEntity<>(new GenericResponse(genericResponse.getData(),genericResponse.getMessage(), genericResponse.isSuccess()),HttpStatus.OK);
     }
 
+    @GetMapping("/getProductById/{id}")
+    public ResponseEntity getProductById(@PathVariable Integer id){
+
+        GenericResponse genericResponse=null;
+        try {
+            genericResponse=productService.findProductById(id);
+        } catch (ResourceNotFoundException e) {
+            logger.error(e.toString());
+            return new ResponseEntity<>(new ErrorResponse("Unable to find product",400),HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new GenericResponse(genericResponse.getData(),genericResponse.getMessage(), genericResponse.isSuccess()),HttpStatus.OK);
+    }
 
     @GetMapping("/getAllProducts")
     public ResponseEntity getAllProducts(@RequestParam(value = "pageNo",defaultValue = "0",required = false)Integer pageNumber,
