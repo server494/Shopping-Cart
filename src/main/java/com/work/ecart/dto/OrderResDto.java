@@ -12,4 +12,5 @@ public class OrderResDto {
     private LocalDateTime deliveryDate;
     private int customerId;
     private int productId;
+    private int cartId;
 }

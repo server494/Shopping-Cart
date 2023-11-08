@@ -30,6 +30,7 @@ public class CategoryController {
         GenericResponse genericResponse =null;
         try {
             genericResponse=categoryService.saveCategory(categoryDto);
+            logger.info("Category saving ended.....");
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse("Unable to save category",500), HttpStatus.INTERNAL_SERVER_ERROR);

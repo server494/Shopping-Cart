@@ -9,6 +9,5 @@ public class OrderReqDto {
     private String payment;
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
-    private int customerId;
-    private int productId;
+    private int cartId;
 }

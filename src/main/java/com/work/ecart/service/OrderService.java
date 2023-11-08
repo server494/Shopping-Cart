@@ -8,5 +8,5 @@ public interface OrderService {
 
     GenericResponse saveOrder(OrderReqDto orderReqDto) throws ResourceNotFoundException;
     GenericResponse getAllOrders(Integer pageNo,Integer pageSize);
-
+    GenericResponse getOrderByPayment(String payment);
 }

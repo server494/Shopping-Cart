@@ -35,7 +35,6 @@ public class CustomerServiceImpl implements CustomerService{
         customer.setAddress(customerReqDto.getAddress());
         customer.setLocation(customerReqDto.getLocation());
         customer.setPassword(customerReqDto.getPassword());
-        customer.setAadharNo(customerReqDto.getAadharNo());
         customer.setPhoneNumber(customerReqDto.getPhoneNumber());
         customerRepository.save(customer);
 
@@ -43,6 +42,7 @@ public class CustomerServiceImpl implements CustomerService{
         customerResDto.setName(customer.getName());
         customerResDto.setAddress(customer.getAddress());
         customerResDto.setPhoneNumber(customer.getPhoneNumber());
+        customerResDto.setLocation(customer.getLocation());
 
         genericResponse.setData(customerResDto);
         genericResponse.setMessage("Customer saved successfully");
@@ -80,13 +80,13 @@ public class CustomerServiceImpl implements CustomerService{
         customer.setLocation(customerReqDto.getLocation());
         customer.setPassword(customerReqDto.getPassword());
         customer.setName(customerReqDto.getName());
-        customer.setAadharNo(customerReqDto.getAadharNo());
         customerRepository.save(customer);
 
         CustomerResDto customerResDto=new CustomerResDto();
         customerResDto.setPhoneNumber(customer.getPhoneNumber());
         customerResDto.setAddress(customer.getAddress());
         customerResDto.setName(customer.getName());
+        customerResDto.setLocation(customer.getLocation());
 
         GenericResponse genericResponse=new GenericResponse();
         genericResponse.setMessage("Customer updated successfully");

@@ -100,6 +100,7 @@ public class ProductServiceImpl implements ProductService{
         product.setProductCode(productReqDto.getProductCode());
         product.setBrand(productReqDto.getBrand());
         product.setRate(productReqDto.getRate());
+        product.setName(productReqDto.getName());
         product.setProductImgName(file.getOriginalFilename());
         productRepository.save(product);
 
@@ -139,10 +140,13 @@ public class ProductServiceImpl implements ProductService{
     public GenericResponse filterProductAbove(Integer rate) {
 
         List<Product> productList = productRepository.filterProductByRateAbove(rate);
+        List<ProductResDto> productResDtoList=productList
+                .stream().map(product -> modelMapper.map(product,ProductResDto.class))
+                .collect(Collectors.toList());
         GenericResponse genericResponse=new GenericResponse<>();
         genericResponse.setMessage("Filter successful");
         genericResponse.setSuccess(true);
-        genericResponse.setData(productList);
+        genericResponse.setData(productResDtoList);
 
         return genericResponse;
     }
