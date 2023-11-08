@@ -27,6 +27,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     List<Orders> orders;
 
+    @OneToMany(mappedBy = "product")
+    List<Cart> cart;
+
     @OneToOne
     @JoinColumn(name = "categoryId",referencedColumnName = "id")
     private Category category;

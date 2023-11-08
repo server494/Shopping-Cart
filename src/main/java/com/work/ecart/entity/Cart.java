@@ -1,24 +1,23 @@
 package com.work.ecart.entity;
 
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-
-public class Orders {
+@Entity
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String payment;
-    private LocalDateTime orderDate;
-    private LocalDateTime deliveryDate;
-
 
     @ManyToOne
     @JoinColumn(name = "customerId",referencedColumnName ="id")
@@ -28,8 +27,6 @@ public class Orders {
     @JoinColumn(name = "productId",referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "cartId",referencedColumnName = "id")
-    private Cart cart;
-
+    @OneToMany(mappedBy = "cart")
+    List<Orders> orders;
 }

@@ -19,8 +19,10 @@ public class Customer {
     private String phoneNumber;
     private String location;
     private String address;
-    private String aadharNo;
     private String password;
+
+    @OneToMany(mappedBy = "customer")
+    List<Cart> cart;
 
     @OneToMany(mappedBy = "customer")
     List<Orders> orders;

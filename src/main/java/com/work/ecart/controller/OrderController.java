@@ -52,4 +52,19 @@ public class OrderController {
         }
         return new ResponseEntity(new GenericResponse<>(genericResponse.getData(),genericResponse.getMessage(),genericResponse.isSuccess()),
                 HttpStatus.OK);    }
+
+    @GetMapping("/getOrderByPayment/{payment}")
+    public ResponseEntity getOrderByPayment(@PathVariable String payment){
+
+        GenericResponse genericResponse=null;
+        try {
+            logger.info("Started retrieving orders based on payment method.....");
+            genericResponse=orderService.getOrderByPayment(payment);
+        }catch (Exception e){
+            logger.error(e.toString());
+            return new ResponseEntity<>(new ErrorResponse("Unable to retrieve orders",500),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(new GenericResponse<>(genericResponse.getData(),genericResponse.getMessage(),genericResponse.isSuccess()),
+                HttpStatus.OK);
+    }
 }
