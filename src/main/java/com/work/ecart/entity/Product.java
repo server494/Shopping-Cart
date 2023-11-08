@@ -1,9 +1,6 @@
 package com.work.ecart.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,7 +28,7 @@ public class Product {
     List<Cart> cart;
 
     @OneToOne
-    @JoinColumn(name = "categoryId",referencedColumnName = "id")
+    @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private Category category;
 
 }

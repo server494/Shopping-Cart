@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket SwaggerApiConfig(){
+    public Docket SwaggerApiConfig() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .paths(PathSelectors.any())
@@ -22,7 +22,8 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build().apiInfo(metaData());
     }
-    private ApiInfo metaData(){
+
+    private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("SWAGGER CONFIGURATION - E CART APPLICATION ")
                 .version("1.1.0")

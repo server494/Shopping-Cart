@@ -1,4 +1,4 @@
-package com.work.ecart.dto;
+package com.work.ecart.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenericResponse <T>{
+public class GenericResponse<T> {
     T data;
     String message;
     boolean isSuccess;

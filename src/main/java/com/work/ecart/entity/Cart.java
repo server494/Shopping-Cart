@@ -1,6 +1,5 @@
 package com.work.ecart.entity;
 
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +19,11 @@ public class Cart {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "customerId",referencedColumnName ="id")
+    @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "productId",referencedColumnName = "id")
+    @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
 
     @OneToMany(mappedBy = "cart")

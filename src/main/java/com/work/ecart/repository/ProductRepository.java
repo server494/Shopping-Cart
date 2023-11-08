@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     //JPQL
     @Query("SELECT p FROM Product p where p.rate >=:r")
-    public List<Product> filterProductByRateAbove(@Param("r")int rate);
+    public List<Product> filterProductByRateAbove(@Param("r") int rate);
 
     @Query("SELECT p FROM Product p where p.rate <=:r")
-    public List<Product> filterProductByRateBelow(@Param("r")int rate);
+    public List<Product> filterProductByRateBelow(@Param("r") int rate);
 
 }

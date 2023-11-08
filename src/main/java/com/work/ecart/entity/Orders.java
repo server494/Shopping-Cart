@@ -1,9 +1,6 @@
 package com.work.ecart.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,15 +18,15 @@ public class Orders {
 
 
     @ManyToOne
-    @JoinColumn(name = "customerId",referencedColumnName ="id")
+    @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "productId",referencedColumnName = "id")
+    @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "cartId",referencedColumnName = "id")
+    @JoinColumn(name = "cartId", referencedColumnName = "id")
     private Cart cart;
 
 }

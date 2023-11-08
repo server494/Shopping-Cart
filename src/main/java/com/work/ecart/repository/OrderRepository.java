@@ -1,7 +1,6 @@
 package com.work.ecart.repository;
 
 import com.work.ecart.entity.Orders;
-import io.swagger.models.auth.In;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +13,6 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
 
     @Query("SELECT o FROM Orders o where o.payment =:p")
     List<Orders> getOrderByPayment(@Param("p") String payment);
-
 
 
 }

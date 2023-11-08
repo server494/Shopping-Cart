@@ -1,6 +1,6 @@
 package com.work.ecart.service;
 
-import com.work.ecart.dto.GenericResponse;
+import com.work.ecart.util.GenericResponse;
 import com.work.ecart.dto.OrderReqDto;
 import com.work.ecart.dto.OrderResDto;
 import com.work.ecart.entity.Cart;
@@ -12,23 +12,17 @@ import com.work.ecart.repository.CartRepository;
 import com.work.ecart.repository.CustomerRepository;
 import com.work.ecart.repository.OrderRepository;
 import com.work.ecart.repository.ProductRepository;
-import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderService orderService;
@@ -50,14 +44,13 @@ public class OrderServiceImpl implements OrderService{
     public GenericResponse saveOrder(OrderReqDto orderReqDto) throws ResourceNotFoundException {
 
         Cart cart = cartRepository.findById(orderReqDto.getCartId())
-                .orElseThrow(()->new ResourceNotFoundException("Cart","id", orderReqDto.getCartId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", "id", orderReqDto.getCartId()));
 
         Product product = productRepository.findById(cart.getProduct().getId())
-                .orElseThrow(()->new ResourceNotFoundException("Product","id", cart.getProduct().getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", cart.getProduct().getId()));
 
         Customer customer = customerRepository.findById(cart.getCustomer().getId())
-                .orElseThrow(()->new ResourceNotFoundException("Customer","id", cart.getCustomer().getId()));
-
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", cart.getCustomer().getId()));
 
 
         Orders order = new Orders();
@@ -89,14 +82,14 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public GenericResponse getAllOrders(Integer pageNo, Integer pageSize) {
 
-        PageRequest pageRequest = PageRequest.of(pageNo,pageSize);
-        Page<Orders> ordersPage=orderRepository.findAll(pageRequest);
-        List<Orders> ordersList=ordersPage.getContent();
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
+        Page<Orders> ordersPage = orderRepository.findAll(pageRequest);
+        List<Orders> ordersList = ordersPage.getContent();
 
         List<OrderResDto> orderResDtoList = ordersList
-                .stream().map(orders ->modelMapper.map(orders,OrderResDto.class))
+                .stream().map(orders -> modelMapper.map(orders, OrderResDto.class))
                 .collect(Collectors.toList());
-        GenericResponse genericResponse=new GenericResponse<>();
+        GenericResponse genericResponse = new GenericResponse<>();
         genericResponse.setSuccess(true);
         genericResponse.setData(orderResDtoList);
         genericResponse.setMessage("Orders fetched successfully");
@@ -108,10 +101,10 @@ public class OrderServiceImpl implements OrderService{
 
         List<Orders> ordersList = orderRepository.getOrderByPayment(payment);
         List<OrderResDto> orderResDtoList = ordersList
-                .stream().map(orders -> modelMapper.map(orders,OrderResDto.class))
+                .stream().map(orders -> modelMapper.map(orders, OrderResDto.class))
                 .collect(Collectors.toList());
 
-        GenericResponse genericResponse=new GenericResponse<>();
+        GenericResponse genericResponse = new GenericResponse<>();
         genericResponse.setData(orderResDtoList);
         genericResponse.setSuccess(true);
         genericResponse.setMessage("Orders fetched successfully");

@@ -2,7 +2,7 @@ package com.work.ecart.service;
 
 import com.work.ecart.dto.CustomerReqDto;
 import com.work.ecart.dto.CustomerResDto;
-import com.work.ecart.dto.GenericResponse;
+import com.work.ecart.util.GenericResponse;
 import com.work.ecart.entity.Customer;
 import com.work.ecart.exception.ResourceNotFoundException;
 import com.work.ecart.repository.CustomerRepository;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
 
     @Autowired
@@ -28,9 +28,9 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public GenericResponse saveCustomer(CustomerReqDto customerReqDto) {
 
-        GenericResponse genericResponse=new GenericResponse<>();
+        GenericResponse genericResponse = new GenericResponse<>();
 
-        Customer customer=new Customer();
+        Customer customer = new Customer();
         customer.setName(customerReqDto.getName());
         customer.setAddress(customerReqDto.getAddress());
         customer.setLocation(customerReqDto.getLocation());
@@ -38,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService{
         customer.setPhoneNumber(customerReqDto.getPhoneNumber());
         customerRepository.save(customer);
 
-        CustomerResDto customerResDto=new CustomerResDto();
+        CustomerResDto customerResDto = new CustomerResDto();
         customerResDto.setName(customer.getName());
         customerResDto.setAddress(customer.getAddress());
         customerResDto.setPhoneNumber(customer.getPhoneNumber());
@@ -53,12 +53,12 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public GenericResponse getAllCustomers(Integer pageNo, Integer pageSize) {
 
-        PageRequest pageRequest = PageRequest.of(pageNo,pageSize);
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
         Page<Customer> page = customerRepository.findAll(pageRequest);
         List<Customer> customers = page.getContent();
 
         List<CustomerResDto> customerResDtoList = customers
-                .stream().map(customer -> modelMapper.map(customer,CustomerResDto.class))
+                .stream().map(customer -> modelMapper.map(customer, CustomerResDto.class))
                 .collect(Collectors.toList());
 
         GenericResponse genericResponse = new GenericResponse<>();
@@ -73,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService{
     public GenericResponse updateCustomer(Integer id, CustomerReqDto customerReqDto) throws ResourceNotFoundException {
 
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Customer","id",id));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
 
         customer.setPhoneNumber(customerReqDto.getPhoneNumber());
         customer.setAddress(customerReqDto.getAddress());
@@ -82,13 +82,13 @@ public class CustomerServiceImpl implements CustomerService{
         customer.setName(customerReqDto.getName());
         customerRepository.save(customer);
 
-        CustomerResDto customerResDto=new CustomerResDto();
+        CustomerResDto customerResDto = new CustomerResDto();
         customerResDto.setPhoneNumber(customer.getPhoneNumber());
         customerResDto.setAddress(customer.getAddress());
         customerResDto.setName(customer.getName());
         customerResDto.setLocation(customer.getLocation());
 
-        GenericResponse genericResponse=new GenericResponse();
+        GenericResponse genericResponse = new GenericResponse();
         genericResponse.setMessage("Customer updated successfully");
         genericResponse.setData(customerResDto);
         genericResponse.setSuccess(true);
@@ -102,7 +102,7 @@ public class CustomerServiceImpl implements CustomerService{
         GenericResponse genericResponse = new GenericResponse<>();
 
         List<CustomerResDto> customerResDtoList = customers
-                .stream().map(customer -> modelMapper.map(customer,CustomerResDto.class))
+                .stream().map(customer -> modelMapper.map(customer, CustomerResDto.class))
                 .collect(Collectors.toList());
 
         genericResponse.setData(customerResDtoList);
@@ -114,9 +114,9 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public GenericResponse deleteCustomer(Integer id) throws ResourceNotFoundException {
 
-        Customer customer =customerRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Customer","id",id));
-        GenericResponse genericResponse=new GenericResponse<>();
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        GenericResponse genericResponse = new GenericResponse<>();
         genericResponse.setSuccess(true);
         genericResponse.setData("[]");
         genericResponse.setMessage("Customer deleted successfully");
