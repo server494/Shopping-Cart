@@ -107,7 +107,6 @@ public class OrderServiceImpl implements OrderService{
     public GenericResponse getOrderByPayment(String payment) {
 
         List<Orders> ordersList = orderRepository.getOrderByPayment(payment);
-
         List<OrderResDto> orderResDtoList = ordersList
                 .stream().map(orders -> modelMapper.map(orders,OrderResDto.class))
                 .collect(Collectors.toList());
