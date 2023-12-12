@@ -15,5 +15,7 @@ public interface CustomerService {
 
     GenericResponse getCustomerByLocation(String location);
 
+    GenericResponse getCustomersByName(String name);
+
     GenericResponse deleteCustomer(Integer id) throws ResourceNotFoundException;
 }

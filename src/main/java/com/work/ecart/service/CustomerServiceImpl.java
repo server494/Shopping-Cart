@@ -112,6 +112,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public GenericResponse getCustomersByName(String name) {
+
+        GenericResponse genericResponse = new GenericResponse();
+        List<Customer> customers = customerRepository.getCustomerByName(name);
+        List<CustomerResDto> customerResDtoList = customers
+                .stream().map(customer -> modelMapper.map(customer, CustomerResDto.class))
+                .collect(Collectors.toList());
+
+        genericResponse.setData(customerResDtoList);
+        genericResponse.setMessage("List fetch successfully");
+        genericResponse.setSuccess(true);
+        return genericResponse;
+    }
+
+    @Override
     public GenericResponse deleteCustomer(Integer id) throws ResourceNotFoundException {
 
         Customer customer = customerRepository.findById(id)
