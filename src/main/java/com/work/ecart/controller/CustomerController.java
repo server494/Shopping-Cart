@@ -60,6 +60,19 @@ public class CustomerController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/getCustomersByName/{name}")
+    public ResponseEntity getCustomersByName(@PathVariable String name){
+        GenericResponse genericResponse = null;
+        try {
+            genericResponse=customerService.getCustomersByName(name);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse("Unable to retrieve customers by location", 500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new GenericResponse<>(genericResponse.getData(), genericResponse.getMessage(), genericResponse.isSuccess()),
+                HttpStatus.OK);
+    }
+
     @PutMapping("/updateCustomer/{id}")
     public ResponseEntity updateCustomer(@PathVariable Integer id, @RequestBody CustomerReqDto customerReqDto) {
 
